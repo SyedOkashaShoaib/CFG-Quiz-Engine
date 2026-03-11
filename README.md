@@ -254,16 +254,5 @@ g++ -std=c++17 -o cfg_quiz main.cpp
 
 ---
 
-## Known Limitations and Future Work
-
-- **`goto` usage:** The control flow in several functions (`Admin_fun`, `main`, `derive`) relies on `goto` statements. These are candidates for refactoring into structured loops for improved readability and maintainability.
-
-- **Off-by-one in `type1()`:** The invalid option is assigned to `options[4]` (index 4 of a 4-element array, i.e., out of bounds). This is a latent bug; the intended index is `options[3]`.
-
-- **`type2()` and `type3()` are unimplemented:** The quiz currently dispatches all questions to `type1()`. The switch-case in `Quiz()` also has an off-by-one: `rand() % 3` produces values 0–2, but the cases handle 1–3, meaning case 0 is never matched and the loop only fires on indices 1 and 2.
-
-- **Scoreboard not wired to quiz:** The `Scoreboard.txt` file exists and contains data, but the current `Quiz()` function does not track or write the user's score at session end. Scoreboard write logic is a pending integration.
-
-- **Difficulty selection not exposed to user:** The three difficulty-tiered grammar files exist and are populated, but the quiz always reads from `cfgs.txt`. Routing quiz sessions to the appropriate difficulty file based on user selection is a natural next step.
 
 - **Single-character symbol assumption:** The derivation engine splits rule strings character-by-character (`string(1, test[i])`), which means multi-character non-terminal names (e.g., `S'`) will be incorrectly split. Multi-character terminals or non-terminals require a tokenized rule representation.
